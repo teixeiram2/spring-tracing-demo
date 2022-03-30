@@ -1,7 +1,9 @@
 package pt.teixeiram2.tracing.service;
 
 
-import org.springframework.cloud.sleuth.annotation.NewSpan;
+import io.opentelemetry.extension.annotations.WithSpan;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jmx.export.annotation.ManagedOperation;
 import org.springframework.jmx.export.annotation.ManagedResource;
 import org.springframework.stereotype.Service;
@@ -12,16 +14,19 @@ import pt.teixeiram2.tracing.repository.FizzHistoryRepository;
 @ManagedResource(objectName = "pt.teixeiram2.tracing:name=FizzHistoryService", description = "Fizz.")
 public class FizzHistoryService {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(FizzHistoryService.class);
+
     private final FizzHistoryRepository fizzHistoryRepository;
 
     public FizzHistoryService(FizzHistoryRepository fizzHistoryRepository) {
         this.fizzHistoryRepository = fizzHistoryRepository;
     }
 
-    @NewSpan("saveFizzMessage")
+    @WithSpan
     public long saveFizzMessage(String message) {
         FizzHistory fizzHistory = new FizzHistory();
         fizzHistory.setMessage(message);
+        LOGGER.info("operation='saveMessage', value='{}', msg='Saving received message'", message);
         return fizzHistoryRepository.save(fizzHistory).getId();
     }
 

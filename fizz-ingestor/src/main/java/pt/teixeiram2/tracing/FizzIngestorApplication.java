@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class FizzGeneratorApplication {
+public class FizzIngestorApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(FizzGeneratorApplication.class, args);
+		SpringApplication.run(FizzIngestorApplication.class, args);
 	}
 
 }

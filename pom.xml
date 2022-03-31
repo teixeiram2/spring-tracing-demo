@@ -18,7 +18,7 @@
 
 	<modules>
 		<module>fizz-aggregator</module>
-		<module>fizz-generator</module>
+		<module>fizz-ingestor</module>
 	</modules>
 
 	<properties>
